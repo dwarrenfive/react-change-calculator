@@ -8,19 +8,85 @@ class App extends Component {
       received: "",
       twenties: 0,
       tens: 0,
-      five: 0,
+      fives: 0,
       ones: 0,
       quarters: 0,
       dimes: 0,
-      nickles: 0,
+      nickels: 0,
       pennies: 0
     };
-    // this.calculate = this.calculate.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
+    this.calculate = this.calculate.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  calulate() {
-    console.log();
+  calculate(amountReceived, amountDue) {
+    var amountReceived = this.state.received; // 40
+    var amountDue = this.state.due; // 20
+
+    var changeDue = Math.round(100 * (amountReceived - amountDue)).toFixed(2); //2000
+
+    var twenties = this.state.twenties;
+    var tens = this.state.tens;
+    var fives = this.state.fives;
+    var ones = this.state.ones;
+    var quarters = this.state.quarters;
+    var dimes = this.state.dimes;
+    var nickels = this.state.nickels;
+    var pennies = this.state.pennies;
+
+    if (changeDue <= 0) {
+      document.getElementById(
+        "output"
+      ).innerHTML = `$ Error, amount received must be greater than amount owed`;
+    } else {
+      document.getElementById(
+        "output"
+      ).innerHTML = `Your total cash back is: $${(changeDue / 100).toFixed(2)}`;
+    }
+
+    if (changeDue >= 2000) {
+      twenties = Math.floor(changeDue / 2000);
+      changeDue = changeDue % 20; // should amount to 1
+    }
+    if (changeDue >= 1000) {
+      tens = Math.floor(changeDue / 1000);
+      changeDue = changeDue % 10;
+    }
+    if (changeDue >= 500) {
+      fives = Math.floor(changeDue / 500);
+      changeDue = changeDue % fives;
+    }
+    if (changeDue >= 100) {
+      ones = Math.floor(changeDue / 100);
+      changeDue = changeDue % ones;
+    }
+    if (changeDue >= 25) {
+      quarters = Math.floor(changeDue / 25);
+      changeDue = changeDue % quarters;
+    }
+    if (changeDue >= 10) {
+      dimes = Math.floor(changeDue / 10);
+      changeDue = changeDue % dimes;
+    }
+    if (changeDue >= 5) {
+      nickels = Math.floor(changeDue / 5);
+      changeDue = changeDue % nickels;
+    }
+    if (changeDue >= 1) {
+      pennies = Math.round(changeDue / 1);
+      changeDue = changeDue % pennies;
+    }
+
+    this.setState({
+      twenties: twenties,
+      tens: tens,
+      fives: fives,
+      ones: ones,
+      quarters: quarters,
+      dimes: dimes,
+      nickels: nickels,
+      pennies: pennies
+    });
   }
 
   handleChange(e) {
@@ -29,8 +95,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <h1>Change Calculator</h1>
+      <div className="container m-4">
+        <h1 className="text-white">Change Calculator</h1>
+        <hr style={{ borderTop: "1px solid white" }} />
         <div className="row">
           <div className="col-4">
             <div className="card rounded-lg shadow-lg">
@@ -79,76 +146,62 @@ class App extends Component {
           <div className="col-8">
             <div className="card rounded-lg shadow-lg">
               <div className="card-body">
-                <div
-                  name="output"
-                  id="output"
-                  className="alert alert-success"
-                ></div>
+                <center>
+                  <div
+                    name="output"
+                    id="output"
+                    className="alert alert-success"
+                  ></div>
+                </center>
                 <div className="row">
                   <div className="col">
-                    <div
-                      className="alert alert-secondary"
-                      value={this.state.twenties}
-                    >
-                      Twenties
+                    <div id="money" className="alert alert-secondary">
+                      <h6>Twenties</h6>
+                      <p id="twenties">{this.state.twenties}</p>
                     </div>
                   </div>
                   <div className="col">
-                    <div
-                      className="alert alert-secondary"
-                      value={this.state.tens}
-                    >
-                      Tens
+                    <div id="money" className="alert alert-secondary">
+                      <h6>Tens</h6>
+                      <p id="tens">{this.state.tens}</p>
                     </div>
                   </div>
                   <div className="col">
-                    <div
-                      className="alert alert-secondary"
-                      value={this.state.fives}
-                    >
-                      Fives
+                    <div id="money" className="alert alert-secondary">
+                      <h6>Fives</h6>
+                      <p id="fives">{this.state.fives}</p>
                     </div>
                   </div>
                   <div className="col">
-                    <div
-                      className="alert alert-secondary"
-                      value={this.state.ones}
-                    >
-                      Ones
+                    <div id="money" className="alert alert-secondary">
+                      <h6>Ones</h6>
+                      <p id="ones">{this.state.ones}</p>
                     </div>
                   </div>
                 </div>
                 <div className="row">
                   <div className="col">
-                    <div
-                      className="alert alert-secondary"
-                      value={this.state.quarters}
-                    >
-                      Quarters
+                    <div id="money" className="alert alert-secondary">
+                      <h6>Quarters</h6>
+                      <p id="quarters">{this.state.quarters}</p>
                     </div>
                   </div>
                   <div className="col">
-                    <div
-                      className="alert alert-secondary"
-                      value={this.state.dimes}
-                    >
-                      Dimes
+                    <div id="money" className="alert alert-secondary">
+                      <h6>Dimes</h6>
+                      <p id="Dimes">{this.state.dimes}</p>
                     </div>
                   </div>
                   <div className="col">
-                    <div
-                      className="alert alert-secondary"
-                      value={this.state.nickles}
-                    >
-                      Nickles
+                    <div id="money" className="alert alert-secondary">
+                      <h6>Nickels</h6>
+                      <p id="nickels">{this.state.nickels}</p>
                     </div>
                   </div>
                   <div className="col">
-                    <div
-                      className="alert alert-secondary"
-                      value={this.state.pennies}
-                    >
-                      Pennies
+                    <div id="money" className="alert alert-secondary">
+                      <h6>Pennies</h6>
+                      <p id="pennies">{this.state.pennies}</p>
                     </div>
                   </div>
                 </div>
