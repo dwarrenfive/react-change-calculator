@@ -19,22 +19,13 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  calculate(amountReceived, amountDue) {
+  calculate() {
     var amountReceived = this.state.received; // 40
     var amountDue = this.state.due; // 20
 
     var changeDue = Math.round(100 * (amountReceived - amountDue)).toFixed(2); //2000
 
-    var twenties = this.state.twenties;
-    var tens = this.state.tens;
-    var fives = this.state.fives;
-    var ones = this.state.ones;
-    var quarters = this.state.quarters;
-    var dimes = this.state.dimes;
-    var nickels = this.state.nickels;
-    var pennies = this.state.pennies;
-
-    if (changeDue <= 0) {
+    if (changeDue < 0) {
       document.getElementById(
         "output"
       ).innerHTML = `$ Error, amount received must be greater than amount owed`;
@@ -45,36 +36,36 @@ class App extends Component {
     }
 
     if (changeDue >= 2000) {
-      twenties = Math.floor(changeDue / 2000);
-      changeDue = changeDue % 20; // should amount to 1
+      var twenties = Math.floor(changeDue / 2000);
+      changeDue = changeDue % 2000; // should amount to 1
     }
     if (changeDue >= 1000) {
-      tens = Math.floor(changeDue / 1000);
-      changeDue = changeDue % 10;
+      var tens = Math.floor(changeDue / 1000);
+      changeDue = changeDue % 1000;
     }
     if (changeDue >= 500) {
-      fives = Math.floor(changeDue / 500);
-      changeDue = changeDue % fives;
+      var fives = Math.floor(changeDue / 500);
+      changeDue = changeDue % 500;
     }
     if (changeDue >= 100) {
-      ones = Math.floor(changeDue / 100);
-      changeDue = changeDue % ones;
+      var ones = Math.floor(changeDue / 100);
+      changeDue = changeDue % 100;
     }
     if (changeDue >= 25) {
-      quarters = Math.floor(changeDue / 25);
-      changeDue = changeDue % quarters;
+      var quarters = Math.floor(changeDue / 25);
+      changeDue = changeDue % 25;
     }
     if (changeDue >= 10) {
-      dimes = Math.floor(changeDue / 10);
-      changeDue = changeDue % dimes;
+      var dimes = Math.floor(changeDue / 10);
+      changeDue = changeDue % 10;
     }
     if (changeDue >= 5) {
-      nickels = Math.floor(changeDue / 5);
-      changeDue = changeDue % nickels;
+      var nickels = Math.floor(changeDue / 5);
+      changeDue = changeDue % 5;
     }
     if (changeDue >= 1) {
-      pennies = Math.round(changeDue / 1);
-      changeDue = changeDue % pennies;
+      var pennies = Math.round(changeDue / 1);
+      changeDue = changeDue % 1;
     }
 
     this.setState({
@@ -157,25 +148,33 @@ class App extends Component {
                   <div className="col">
                     <div id="money" className="alert alert-secondary">
                       <h6>Twenties</h6>
-                      <p id="twenties">{this.state.twenties}</p>
+                      <p id="twenties" className="change">
+                        {this.state.twenties}
+                      </p>
                     </div>
                   </div>
                   <div className="col">
                     <div id="money" className="alert alert-secondary">
                       <h6>Tens</h6>
-                      <p id="tens">{this.state.tens}</p>
+                      <p id="tens" className="change">
+                        {this.state.tens}
+                      </p>
                     </div>
                   </div>
                   <div className="col">
                     <div id="money" className="alert alert-secondary">
                       <h6>Fives</h6>
-                      <p id="fives">{this.state.fives}</p>
+                      <p id="fives" className="change">
+                        {this.state.fives}
+                      </p>
                     </div>
                   </div>
                   <div className="col">
                     <div id="money" className="alert alert-secondary">
                       <h6>Ones</h6>
-                      <p id="ones">{this.state.ones}</p>
+                      <p id="ones" className="change">
+                        {this.state.ones}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -183,25 +182,33 @@ class App extends Component {
                   <div className="col">
                     <div id="money" className="alert alert-secondary">
                       <h6>Quarters</h6>
-                      <p id="quarters">{this.state.quarters}</p>
+                      <p id="quarters" className="change">
+                        {this.state.quarters}
+                      </p>
                     </div>
                   </div>
                   <div className="col">
                     <div id="money" className="alert alert-secondary">
                       <h6>Dimes</h6>
-                      <p id="Dimes">{this.state.dimes}</p>
+                      <p id="Dimes" className="change">
+                        {this.state.dimes}
+                      </p>
                     </div>
                   </div>
                   <div className="col">
                     <div id="money" className="alert alert-secondary">
                       <h6>Nickels</h6>
-                      <p id="nickels">{this.state.nickels}</p>
+                      <p id="nickels" className="change">
+                        {this.state.nickels}
+                      </p>
                     </div>
                   </div>
                   <div className="col">
                     <div id="money" className="alert alert-secondary">
                       <h6>Pennies</h6>
-                      <p id="pennies">{this.state.pennies}</p>
+                      <p id="pennies" className="change">
+                        {this.state.pennies}
+                      </p>
                     </div>
                   </div>
                 </div>
